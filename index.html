@@ -16,8 +16,11 @@
         button { width: 100%; min-height: 56px; padding: 12px; border: none; border-radius: 12px; font-size: 1.2rem; font-weight: 700; color: #fff; cursor: pointer; margin-bottom: 16px; transition: .3s; }
         button:disabled { background: #ccc !important; color: #666; cursor: not-allowed; }
         button:not(:disabled):active { transform: scale(0.98); }
-        #btn1 { background: var(--p); }
+        
+        /* FIX 1: Dark text on orange button to pass contrast ratio checks */
+        #btn1 { background: var(--p); color: #111; } 
         #btn2 { background: var(--s); }
+        
         img { width: 100%; height: auto; border-radius: 8px; }
         .footer { margin-top: 24px; border-top: 1px solid #ddd; padding-top: 12px; font-size: 0.8rem; color: #666; text-align: center; }
         .footer p { margin: 4px 0; }
@@ -26,7 +29,8 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- FIX 3: Changed outer div to <main> to provide a document landmark -->
+    <main class="container">
         <h1>BTEUP Direct Admit Card</h1>
         
         <label for="trackId">Enter Your Enrollment No</label>
@@ -36,15 +40,16 @@
         <button id="btn1" disabled>Get Admit Card</button>
         <button id="btn2" disabled>Get Verification Card</button>
         
-        <img src="https://images.hindustantimes.com/rf/image_size_630x354/HT/p2/2020/06/28/Pictures/metropolitan-minister-narendra-birthday-addresses-during-celebrations_e332f872-b8ed-11ea-b212-8f8a0313eef6.jpg" alt="Modi Ji image">
+        <!-- FIX 2: Added fetchpriority="high" to prioritize LCP image loading -->
+        <img src="https://images.hindustantimes.com/rf/image_size_630x354/HT/p2/2020/06/28/Pictures/metropolitan-minister-narendra-birthday-addresses-during-celebrations_e332f872-b8ed-11ea-b212-8f8a0313eef6.jpg" alt="Modi Ji image" fetchpriority="high">
                
         <div class="footer">
             <p>Last Updated: <span id="time">Loading...</span></p>
             <p>Total Visitors: <span id="views">--</span></p>
         </div>
-    </div>
+    </main>
 
-        <script>
+    <script>
         // Cache DOM elements cleanly
         const $ = id => document.getElementById(id);
         const [input, msg, btn1, btn2, time, views] = ['trackId', 'msg', 'btn1', 'btn2', 'time', 'views'].map($);
@@ -77,6 +82,5 @@
         
         views.textContent = displayCount + "+";
     </script>
-
 </body>
 </html>
