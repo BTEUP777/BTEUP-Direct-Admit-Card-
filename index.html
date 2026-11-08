@@ -60,6 +60,9 @@
     </main>
 
     <script>
+        // Disable right-click
+        document.addEventListener('contextmenu', e => e.preventDefault());
+
         // Cache DOM elements cleanly
         const $ = id => document.getElementById(id);
         const [input, msg, btn1, btn2, time, views] = ['trackId', 'msg', 'btn1', 'btn2', 'time', 'views'].map($);
